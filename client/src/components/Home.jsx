@@ -1,28 +1,31 @@
 import { useState , useEffect } from 'react';
 import WeekGrid from './Weekgrid';
+import TaskColumn from './TaskColumn';
+import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 import '../App.css';
 import axios from 'axios';
 
 const Home = () => {
-    
-const [message, setMessage] = useState("");
+    {{/*
+const [best_fitness, setfit] = useState("");
 
     useEffect(() => {
-        axios.get('http://localhost:3000/hello-world')
+        axios.get('http://localhost:8000/genalgorithm')
             .then(response => {
-                setMessage(response.data.message);
+                setfit(response.data.best_fitness);
             })
             .catch(error => {
                 console.log(error);
             });
     }, []);
-    
-    
+*/}}
     return(
         <div className='App'>
+            <h1 class="Logo">FYP SCHEDULER</h1>
             <WeekGrid></WeekGrid>
-            <h1>FYP SCHEDULER</h1>
-            <p>{message}</p>
+            <Col xs={2} id='sidebar-wrapper'>
+                <TaskColumn></TaskColumn>
+            </Col>
         </div>
     );
 }
