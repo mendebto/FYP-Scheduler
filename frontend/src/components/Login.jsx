@@ -1,6 +1,5 @@
 import '../App.css';
-import Calendar from 'react-calendar';
-
+import React, {useState, useEffect} from 'react';
 const Login = () => {
     return(
         <div>

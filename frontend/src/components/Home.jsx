@@ -1,4 +1,4 @@
-import { useState , useEffect } from 'react';
+import React, { useState , useEffect } from 'react';
 import WeekGrid from './Weekgrid';
 import TaskColumn from './TaskColumn';
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
@@ -7,6 +7,7 @@ import axios from 'axios';
 
 const Home = () => {
     {{/*
+    
 const [best_fitness, setfit] = useState("");
 
     useEffect(() => {
@@ -19,6 +20,14 @@ const [best_fitness, setfit] = useState("");
             });
     }, []);
 */}}
+    const [isAuth, setIsAuth] = useState(false);
+
+    useEffect(() => {
+        if (localStorage.getItem('access_token') !== null){
+            setIsAuth(true);
+        }
+    }, [isAuth]);
+
     return(
         <div className='App'>
             <h1 class="Logo">FYP SCHEDULER</h1>
@@ -27,9 +36,11 @@ const [best_fitness, setfit] = useState("");
                 /*
                 <Col xs={2} id='sidebar-wrapper'>
                 <TaskColumn></TaskColumn>
-            </Col>
+                </Col>
                 */
             }
+
+            
             
         </div>
     );

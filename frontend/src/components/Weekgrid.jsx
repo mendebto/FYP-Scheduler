@@ -10,7 +10,7 @@ import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 */
 import '../App.css';
-import React, { useState, useRef } from 'react';
+import React, { useState} from 'react';
 import {DayPilotCalendar, DayPilotNavigator} from '@daypilot/daypilot-lite-react';
 
 
@@ -45,9 +45,9 @@ const Weekgrid = (props) => {
     const [newEvents, setNewEvents] = useState({title: "", start:"", end: ""})
     const [allEvents, setallEvents] = useState(events)
 
-
-*/}
 const calendarRef = useRef();
+*/}
+
 
 
    const [config, setConfig] = useState({

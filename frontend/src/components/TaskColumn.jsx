@@ -3,6 +3,14 @@ import {withRouter} from "react-router";
 import '../App.css';
 
 const TaskColumn = (props) => {
+    const [isAuth, setIsAuth] = useState(false);
+
+    useEffect(() => {
+        if (localStorage.getItem('access_token') !== null){
+            setIsAuth(true);
+        }
+    }, [isAuth]);
+
     return(
         <Nav className="col-md-12 d-none d-md-block sidebar"
             activeKey="/Home"
