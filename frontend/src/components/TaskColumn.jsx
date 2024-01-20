@@ -1,4 +1,6 @@
-import {Nav} from 'react-bootstrap';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import React, {useState, useEffect} from 'react';
 import {withRouter} from "react-router";
 import '../App.css';
 
@@ -12,21 +14,16 @@ const TaskColumn = (props) => {
     }, [isAuth]);
 
     return(
-        <Nav className="col-md-12 d-none d-md-block sidebar"
-            activeKey="/Home"
-            onSelect={selectedKey => alert(`selected ${selectedKey}`)}
-            >
-                <div className="sidebar-sticky"></div>
-            <Nav.Item>
-                <Nav.Link href="">Upcoming Events</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-                <Nav.Link eventKey="">Calendar</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-                <Nav.Link eventKey="">Timetable</Nav.Link>
-            </Nav.Item>
-        </Nav>
+        <Navbar >
+            <Navbar.Brand href ="/"> FYP Scheduler</Navbar.Brand>
+            <Nav className="me-auto">
+                {isAuth ? <Nav.Link href = "/">Home</Nav.Link>:null}
+            </Nav>
+            <Nav>
+                {isAuth ? <Nav.Link href = "/logout">Logout</Nav.Link>:
+                <Nav.Link href="/login">Login</Nav.Link>}
+            </Nav>
+        </Navbar>
     );
 }
 
