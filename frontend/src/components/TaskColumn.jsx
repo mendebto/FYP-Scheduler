@@ -5,14 +5,6 @@ import {withRouter} from "react-router";
 import '../App.css';
 
 const TaskColumn = (props) => {
-    const [isAuth, setIsAuth] = useState(false);
-
-    useEffect(() => {
-        if (localStorage.getItem('access_token') !== null){
-            setIsAuth(true);
-        }
-    }, [isAuth]);
-
     return(
         <Navbar >
             <Navbar.Brand href ="/"> FYP Scheduler</Navbar.Brand>
