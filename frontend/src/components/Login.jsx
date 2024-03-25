@@ -1,6 +1,8 @@
 import '../App.css';
 import React, {useState, useEffect} from 'react';
 import {Router, Link} from "react-router-dom";
+import axios from 'axios';
+
 const Login = () => {
 
     const[userType, setUserType] = useState("student");
@@ -9,9 +11,14 @@ const Login = () => {
         setUserType(e.target.value);
     }
 
-    const handleSubmit =(e) => {
-        
+    function LoginForm() {
+        const [form,Setform] = useState({
+            
+            email: '',
+            password: ''
+        });
     }
+
 
     return(
         <div>

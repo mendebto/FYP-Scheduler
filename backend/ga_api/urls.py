@@ -22,6 +22,6 @@ router = routers.DefaultRouter()
 router.register('ga_api',views.ApprovalsView)
 urlpatterns = [
     path('form/',views.myform, name='myform'),
-    path('api', include(router.urls)),
-    path('status/', views.approvals),#response
+    path('api/', include(router.urls)),
+    path('gentt/', views.gentt),#response
 ]
