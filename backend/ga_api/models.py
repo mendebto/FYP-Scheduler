@@ -1,35 +1,40 @@
 from django.db import models
-
-
-
-TIMES = (
-    ('10:00','10:00'),
-    ('10;30','10:30'),
-    ('11:00','11:00'),
-    ('11:30','11:30'),
-    ('12:00','12:00'),
-    ('12:30','12:30'),
-    ('13:00','13:00'),
-    ('13:30','13:30'),
-    ('14:00','14:00'),
-    ('14:30','14:30'),
-    ('15:00','15:00'),
-    ('15:30','15:30'),
-    ('16:00','16:00'),
-    ('16:30','16:30'),
-    ('17:00','17:00'),
-    ('17:30','17:30'),
-    )
+from django.contrib.auth.models import User, AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import BaseUserManager
 
 # Create your models here.
-class times(models.Model):
-    studentid=models.CharField(max_length=10)
-    mon=models.CharField(max_length=8, choices=TIMES)
-    tue=models.CharField(max_length=8, choices=TIMES)
-    wed=models.CharField(max_length=8, choices=TIMES)
-    thu=models.CharField(max_length=8, choices=TIMES)
-    fri=models.CharField(max_length=8, choices=TIMES)
+class AvailableTimes(models.Model):
+    availabletimes = models.CharField(max_length=100)
+    class Meta:
+        db_table = "available_times"    
+
+class StaffUser(models.Model):
+    staff_id = models.CharField(max_length=10, primary_key=True)
+    password = models.CharField(max_length=100)
+    firstname = models.CharField(max_length=25)
+    lastname = models.CharField(max_length=30)
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
     
 
-def __str__(self):
-    return '{}, {}'.format(self.lastname, self.firstname)
+    class Meta:
+        db_table = "staff_user"
+
+class StudentUser(models.Model):
+    student_id = models.CharField(max_length=10, primary_key=True)
+    supervisor = models.ForeignKey(StaffUser, on_delete=models.CASCADE )
+    password = models.CharField(max_length=100)
+    firstname = models.CharField(max_length=25)
+    lastname = models.CharField(max_length=30)
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
+    class Meta:
+        db_table = "student_user"
+
+class GeneratedTimetable(models.Model):
+    staffuser = models.ForeignKey(StaffUser, models.DO_NOTHING)
+    chosentimes = models.ForeignKey(AvailableTimes, models.DO_NOTHING)
+
+    class Meta:
+        db_table = "generated_timetable"

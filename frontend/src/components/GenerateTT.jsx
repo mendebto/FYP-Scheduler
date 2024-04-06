@@ -7,20 +7,6 @@ import '../App.css';
 import axios from 'axios';
 
 const GenerateTT= () => {
-    {{/*
-    
-const [best_fitness, setfit] = useState("");
-
-    useEffect(() => {
-        axios.get('http://localhost:8000/genalgorithm')
-            .then(response => {
-                setfit(response.data.best_fitness);
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    }, []);
-*/}}
 
     const [isAuth, setIsAuth] = useState(false);
     useEffect(() => {
@@ -29,11 +15,14 @@ const [best_fitness, setfit] = useState("");
         }
     }, [isAuth]);
 
-    const handleGenerate = () => {
+    {
+        /*
+        const handleGenerate = () => {
         useEffect(() => {
-            axios.get('http://localholst:8000/api/data')
+            axios.get('http://localholst:8000/api/gentt/')
             .then(response => {
                 //the data that is going to be received
+
             })
             .catch(error => {
                 //if failure 
@@ -41,6 +30,9 @@ const [best_fitness, setfit] = useState("");
         }
         )
     }
+        */
+    }
+    
     return(
         <div className='App'>
             <h1 class="Logo">FYP SCHEDULER</h1>

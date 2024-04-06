@@ -18,7 +18,7 @@ const StaffSidebar = (props) => {
                 <Nav.Link eventKey="">Timetable</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-                <Nav.Link href="/gentt">Timetable</Nav.Link>
+                <Nav.Link href="/gentt">Generate Timetable</Nav.Link>
             </Nav.Item>
         </Nav>
     );

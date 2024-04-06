@@ -1,6 +1,7 @@
 import React, { useState , useEffect } from 'react';
 import Calgrid from './Calgrid';
 import Sidebar from './Sidebar';
+import Staffsidebar from './Staffsidebar';
 import Grid from './Grid';
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 import '../App.css';
@@ -8,9 +9,6 @@ import axios from 'axios';
 
 const Home = () => {
     {{/*
-    
-const [best_fitness, setfit] = useState("");
-
     useEffect(() => {
         axios.get('http://localhost:8000/genalgorithm')
             .then(response => {
@@ -35,8 +33,8 @@ const [best_fitness, setfit] = useState("");
             <h1 class="Logo">FYP SCHEDULER</h1>
             
 
-            <Sidebar/>
-            <Calgrid/>
+            <Staffsidebar/>
+            <Calgrid></Calgrid>
             {
                 /*
                 <Col xs={2} id='sidebar-wrapper'>

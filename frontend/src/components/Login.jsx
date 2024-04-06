@@ -1,7 +1,10 @@
 import '../App.css';
 import React, {useState, useEffect} from 'react';
-import {Router, Link} from "react-router-dom";
+import {Router, Link, useNavigate} from "react-router-dom";
 import axios from 'axios';
+import Cookies from 'js-cookie';
+import 'react-bootstrap';
+
 
 const Login = () => {
 
@@ -11,14 +14,25 @@ const Login = () => {
         setUserType(e.target.value);
     }
 
-    function LoginForm() {
-        const [form,Setform] = useState({
-            
-            email: '',
-            password: ''
-        });
-    }
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
+    const submit = async e => {
+        e.preventDefault();
+        const user = {
+            email: email,
+            password: password
+        }
+        try {
+            const {data} = await axios.post('http://localhost:8000/token/, user');
+            Cookies.set('access_token', data.access_token);
+            Cookies.set('refresh_token', data.refresh_token);
+            navigate('/');
+    }
+    catch(error) {
+        console.log(error);
+    }}
 
     return(
         <div>
@@ -30,7 +44,7 @@ const Login = () => {
                         type="radio"
                         value="student"
                         checked={userType === "student"}
-                        onChange={handleUserChange}
+                        onChange={e => handleUserChange(e)}
                     />
                      Student Login
                 </label>
@@ -40,7 +54,7 @@ const Login = () => {
                     type='radio'
                     value="staff"
                     checked={userType === 'staff'}
-                    onChange={handleUserChange}
+                    onChange={e => handleUserChange(e)}
                     />
                 Staff Login
                 </label>
@@ -58,19 +72,46 @@ const Login = () => {
 }
 
 const StudentLogin = () => {
+    const[userType, setUserType] = useState("student");
+
+    const handleUserChange = (e) => {
+        setUserType(e.target.value);
+    }
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const navigate = useNavigate();
+
+    const submit = async e => {
+        e.preventDefault();
+        const user = {
+            email: email,
+            password: password
+        }
+        try {
+            const {data} = await axios.post('http://localhost:8000/token/, user');
+            Cookies.set('access_token', data.access_token);
+            Cookies.set('refresh_token', data.refresh_token);
+            navigate('/');
+    }
+    catch(error) {
+        console.log(error);
+    }}
     return(
         <div class='row justify-content-center'>
             <form class='form-group'>
                 <input
                 type='email'
                 placeholder='Enter Student ID'
-
+                name='email'
+                onChange={(e) => setEmail(e.target.value)}
                 />
                 <br/>
                 <input
                 type='password'
                 placeholder=' Enter Password'
-
+                name='password'
+                onChange={(e) => setPassword(e.target.value)}
                 />
                 <div class='col text-center'>
                     <button
@@ -85,19 +126,44 @@ const StudentLogin = () => {
 }
 
 const StaffLogin = () => {
+    const[userType, setUserType] = useState("student");
+
+    const handleUserChange = (e) => {
+        setUserType(e.target.value);
+    }
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const navigate = useNavigate();
+
+    const submit = async e => {
+        e.preventDefault();
+        const user = {
+            email: email,
+            password: password
+        }
+        try {
+            const {data} = await axios.post('http://localhost:8000/token/, user');
+            Cookies.set('access_token', data.access_token);
+            Cookies.set('refresh_token', data.refresh_token);
+            navigate('/');
+    }
+    catch(error) {
+        console.log(error);
+    }}
     return(
         <div class='row justify-content-center'> 
             <form>
                 <input
                 type='email'
                 placeholder='Enter Staff ID'
-
+                onChange={e => setEmail(e.target.value)}
                 />
                 <br/>
                 <input
                 type='password'
                 placeholder='Enter Password'
-
+                onChange={e => setPassword(e.target.value)}
                 />
                 <div class='col text-center'>
                     <button
