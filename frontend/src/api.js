@@ -70,6 +70,4 @@ export class Test {
             body: JSON.stringify(body)
         })
     }
-
-
 }

@@ -2,46 +2,23 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.forms import Form
-from django.core import serializers
 from django.views import View
 from rest_framework import viewsets, status
 from rest_framework_simplejwt.tokens import RefreshToken, AccessToken, TokenError
 from rest_framework.decorators import api_view, action
 from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.authtoken.models import Token
+from rest_framework.permissions import IsAuthenticated
+from .models import StudentUser, StaffUser, AvailableTimes
+from .serializers import StaffSerializer, StudentSerializer, AvailTimesSerializer
 
-from .serializers import StaffSerializer, StudentSerializer
-#from .serializers import UserSerializers, PasswordSerializer
-# Create your views here.
-"""
-@api_view(['GET'])
-def gettime(request):
-    return #return times
+#Student view
+class StudentViewSet(viewsets.ModelViewSet):
+    serializer_class = StudentSerializer
+    queryset=StudentUser.objects.all()
 
-def getgatt():#
-    pass
-
-@api_view(['POST'])
-def uploadsttimes():#student uploads availability times
-    pass
-def uploadsvtimes():#supervisor uploads availability times
-    pass
-@api_view(['PUT'])
-def updatesvtime():
-    pass
-def updatesttime():
-    pass
-@api_view(['DELETE'])
-def deletetime():
-    pass
-"""
-
-#User view
-
-class UserViewSet(viewsets.ModelViewSet):
-    serializer_class = UserSerializer
-    queryset=User.objects.all()
-    
     @action(detail=True, methods=['post'])
     def set_password(self,request,pk=None):
         user = self.get_object()
@@ -52,13 +29,7 @@ class UserViewSet(viewsets.ModelViewSet):
             return Response({'status':'password set'})
         else:
             return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
-
-#Student view
-
-class StudentViewSet(viewsets.ModelViewSet):
-    serializer_class = StudentSerializer
-    queryset=Student.objects.all()
-
+    
     @action(detail=True, methods=['post'])
     def login(self,request):
         email = request.data['email']
@@ -78,7 +49,7 @@ class StudentViewSet(viewsets.ModelViewSet):
             'access_token':str(access_token),
             'refresh_token':str(refresh_token)
         },status=status.HTTP_200_OK)
-
+    
     @action(detail=True, methods=['post'])       
     def register(self,request):
         serializers = StudentSerializer(data=request.data)
@@ -97,14 +68,11 @@ class StudentViewSet(viewsets.ModelViewSet):
         except TokenError:
             return Response({'message':'Invalid token'},status=status.HTTP_400_BAD_REQUEST)
         raise AuthenenticationFailed('Invalid credentials')
-    
 
 #Staff view
-
 class StaffViewSet(viewsets.ModelViewSet):
     serializer_class = StaffSerializer
-    queryset=Staff.objects.all()
-
+    queryset=StaffUser.objects.all()
     @action(detail=True, methods=['post'])
     def login(self,request):
         email = request.data['email']
@@ -148,5 +116,3 @@ class StaffViewSet(viewsets.ModelViewSet):
 class AvailTimesViewSet(viewsets.ModelViewSet):
     serializer_class = AvailTimesSerializer
     queryset=AvailableTimes.objects.all()
-
-#Password view

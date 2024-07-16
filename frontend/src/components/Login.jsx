@@ -7,7 +7,7 @@ import 'react-bootstrap';
 
 
 const Login = () => {
-
+    
     const[userType, setUserType] = useState("student");
 
     const handleUserChange = (e) => {
@@ -25,14 +25,14 @@ const Login = () => {
             password: password
         }
         try {
-            const {data} = await axios.post('http://localhost:8000/token/, user');
+            const {data} = await axios.post('http://localhost:8000/token/', user);
             Cookies.set('access_token', data.access_token);
             Cookies.set('refresh_token', data.refresh_token);
-            navigate('/');
+            navigate('/'); 
     }
     catch(error) {
         console.log(error);
-    }}
+    }} 
 
     return(
         <div>
@@ -83,27 +83,29 @@ const StudentLogin = () => {
     const navigate = useNavigate();
 
     const submit = async e => {
+        console.log(userType);
         e.preventDefault();
         const user = {
             email: email,
             password: password
         }
-        try {
-            const {data} = await axios.post('http://localhost:8000/token/, user');
-            Cookies.set('access_token', data.access_token);
-            Cookies.set('refresh_token', data.refresh_token);
+        
+            const {data} = await axios.post('http://localhost:8000/token/', user,
+            {headers: {'Content-Type': 'application/json'}},
+            {withCredentials: true});
+            localStorage.setItem('access_token', data.access);
+            localStorage.setItem('refresh_token', data.refresh);
+            axios.defaults.headers.common['Authorization'] = `Bearer ${data.access}`;
             navigate('/');
     }
-    catch(error) {
-        console.log(error);
-    }}
     return(
-        <div class='row justify-content-center'>
-            <form class='form-group'>
+        <div className='Auth-form-container row justify-content-center'>
+            <form class='Auth-form form-group'>
                 <input
                 type='email'
-                placeholder='Enter Student ID'
+                placeholder='Enter Student Email'
                 name='email'
+                value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 />
                 <br/>
@@ -111,11 +113,13 @@ const StudentLogin = () => {
                 type='password'
                 placeholder=' Enter Password'
                 name='password'
+                value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 />
                 <div class='col text-center'>
                     <button
-                    type='submit' class='btn btn-primary'>
+                    type='submit' 
+                    className='btn btn-primary'>
                     Log in
                     </button>
                 </div>
@@ -124,7 +128,6 @@ const StudentLogin = () => {
         </div>
     );
 }
-
 const StaffLogin = () => {
     const[userType, setUserType] = useState("student");
 
@@ -143,7 +146,7 @@ const StaffLogin = () => {
             password: password
         }
         try {
-            const {data} = await axios.post('http://localhost:8000/token/, user');
+            const {data} = await axios.post('http://localhost:8000/token/', user);
             Cookies.set('access_token', data.access_token);
             Cookies.set('refresh_token', data.refresh_token);
             navigate('/');
@@ -156,7 +159,7 @@ const StaffLogin = () => {
             <form>
                 <input
                 type='email'
-                placeholder='Enter Staff ID'
+                placeholder='Enter Staff Email'
                 onChange={e => setEmail(e.target.value)}
                 />
                 <br/>
@@ -167,7 +170,7 @@ const StaffLogin = () => {
                 />
                 <div class='col text-center'>
                     <button
-                    type='submit' class='btn btn-primary '>
+                    type='submit' class='btn btn-primary' onClick={submit}>
                     Log in
                     </button>
                 </div>

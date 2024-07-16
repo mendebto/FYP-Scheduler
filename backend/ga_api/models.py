@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.auth.models import User, AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import BaseUserManager
 
 # Create your models here.
@@ -13,10 +12,7 @@ class StaffUser(models.Model):
     password = models.CharField(max_length=100)
     firstname = models.CharField(max_length=25)
     lastname = models.CharField(max_length=30)
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
     
-
     class Meta:
         db_table = "staff_user"
 
@@ -26,8 +22,6 @@ class StudentUser(models.Model):
     password = models.CharField(max_length=100)
     firstname = models.CharField(max_length=25)
     lastname = models.CharField(max_length=30)
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
 
     class Meta:
         db_table = "student_user"

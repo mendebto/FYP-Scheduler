@@ -81,7 +81,8 @@ const Calgrid = (props) => {
             defaultView='work_week'
             views={['day','work_week','month']}
             localizer={localiser}
-            events={allEvents}             
+            events={allEvents}    
+            selectable         
             startAccessor="start" 
             endAccessor="end"
             style={{height:600, marginLeft:"20vw", marginRight: "5vw", marginTop: "3vw"}}

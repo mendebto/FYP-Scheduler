@@ -47,7 +47,7 @@ const Signup = () => {
                 <input
                 type='email'
                 onChange={e => setEmail(e.target.value)}
-                placeholder='Staff ID'
+                placeholder='Enter student Email'
                 />
                 <br/>
                 <input
