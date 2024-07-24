@@ -13,7 +13,7 @@ const Signup = () => {
     const [lastname, setLastname] = useState('');
     const navigate = useNavigate();
 
-    const submit = async e => {
+    const submit = async (e)=> {
         e.preventDefault();
         const user = {
             id: id,
@@ -21,14 +21,6 @@ const Signup = () => {
             firstname: firstname,
             lastname: lastname,
             email: email,
-        }
-        try {
-            const {data} = await axios.post('http://localhost:8000/register', user);
-            Cookies.set('access_token', data.access_token);
-            Cookies.set('refresh_token', data.refresh_token);
-            navigate('/');
-        } catch(error) {
-            console.log(error);
         }
     }
     return(
