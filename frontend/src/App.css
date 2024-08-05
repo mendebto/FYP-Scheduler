@@ -63,6 +63,40 @@ input{
   text-decoration: none;
 }
 
+.toolbar-content {
+  height:100%;
+  padding: 20px;
+}
+
+.toolbar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.toolbar-body {
+  overflow-y: auto;
+  height: calc(100% - 60px);
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.close-btn {
+  background-color: red;
+  border: none;
+  cursor: pointer;
+  color: white;
+  border-radius: 10px;
+}
+
 #page-content-wrapper {
   min-width: 0;
   width: 100%;

@@ -1,6 +1,7 @@
 //react and css
-import './../App.css';
+import '../../App.css';
 import React, { useState, useEffect } from 'react';
+import Toolbar from './toolbar';
 //calendar imports
 import { Calendar , dateFnsLocalizer} from 'react-big-calendar';
 import "react-big-calendar/lib/css/react-big-calendar.css";
@@ -10,9 +11,11 @@ import parse from 'date-fns/parse';
 import startOfWeek from 'date-fns/startOfWeek';
 import getDay from 'date-fns/getDay';
 import DatePicker from 'react-datepicker';
+import moment from "moment";
 //firebase imports
-import { auth, db } from '../config';
-import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import { auth, db } from '../../config';
+import { collection,getDocs} from 'firebase/firestore';
+
 
 const Calgrid = (props) => {
     const locales = {
@@ -27,22 +30,20 @@ const Calgrid = (props) => {
         locales
     });
 
-    const onSelectSlot = (e) => {
-        console.log("pressed Date: ", e)
-    };
-
-    const [events, setEvents] = useState();
+    const [events,setEvents] = useState([]);
+    const [showCanvas, setShowCanvas] = useState(false);
+    const [selectedEvent, setSelectedEvent] = useState(null);
     
-    useEffect(()=> {
-        onSnapshot(
-            query(
-                collection(db, "student_req_table"),
-                where("uid","==", auth.currentUser.uid),
-            ),
-            (snapshot) => setEvents(snapshot.doc)
-        ), []
-    })
+    const toggleCanvas = () => {
+        setShowCanvas(!showCanvas);
+    }
 
+    const handleAddEvent = (newEvents) => {
+        setEvents([...events, newEvents]);
+        setShowCanvas(false);
+        
+    }
+    
     {/*
     function handleDeleteEvent(event) {
         setallEvents(allEvents.filter(e => e.id!== event.id))
@@ -50,7 +51,7 @@ const Calgrid = (props) => {
     */}
 
     return(
-        <div>
+        <div className='App'>
             {/*
             <div>
                 <input type="text" placeholder='Add title' value={newEvents.title} onChange={(e) => setNewEvents({...newEvents, title: e.target.value})}
@@ -60,18 +61,31 @@ const Calgrid = (props) => {
                 <button style={{marginTop: "10px"}} onClick={handleAddEvent}>Add</button>
             </div>
             */}
-            <div>
-                
+            <div className='btn-container'>
+                <button className='btn-event' onClick={() => {setSelectedEvent(null); toggleCanvas();}}>
+                    Add Event
+                </button>
+                <Toolbar
+                    show={showCanvas}
+                    onHide={toggleCanvas}
+                    onAddEvent={handleAddEvent}
+                    selectedEvent={selectedEvent}
+                />
+            </div>
+            
+
+            <div> 
                 <Calendar 
                 defaultView='work_week'
                 views={['day','work_week','month']}
                 localizer={localiser}
                 events={events}
                 selectable={true}
-                onSelectSlot={onSelectSlot}
+                onSelectSlot={handleAddEvent}
                 startAccessor="start" 
                 endAccessor="end"
                 style={{height:600, marginLeft:"20vw", marginRight: "5vw", marginTop: "3vw"}}
+                
                 />
             </div>
         

@@ -19,5 +19,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+export const minTime = new Date();
+minTime.setHours = (9,0,0);
+export const maxTime = new Date();
+maxTime.setHours = (18,0,0); 
+export const eventDefault= {
 
+}
 //const analytics = getAnalytics(app);

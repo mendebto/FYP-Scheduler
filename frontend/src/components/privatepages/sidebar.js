@@ -1,6 +1,6 @@
 import {Nav} from 'react-bootstrap';
-import '../App.css';
-import logo from '../images/TUD.png';
+import '../../App.css';
+import logo from '../../images/TUD.png';
 
 const Sidebar = (props) => {
 
@@ -9,7 +9,7 @@ const Sidebar = (props) => {
             activeKey="/Home">
                 <div className="sidebar-sticky"></div>
             <Nav.Item>
-                <Nav.Link href="https://www.tudublin.ie"><img src={logo} id='logo'/></Nav.Link>
+                <Nav.Link href="https://www.tudublin.ie" ><img src={logo} id='logo' alt="TUDublin Logo Link"/></Nav.Link>
             </Nav.Item>
             <Nav.Item>
                 <Nav.Link href="">Upcoming Events</Nav.Link>
